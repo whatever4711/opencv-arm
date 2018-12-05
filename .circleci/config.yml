@@ -1,0 +1,13 @@
+version: 2
+defaults: &defaults
+  working_directory: ~/opencv
+  machine: true
+
+jobs:
+  build_amd64:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Build image for amd64
+          command: docker run --rm --privileged multiarch/qemu-user-static:register --reset && docker build . 
