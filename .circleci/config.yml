@@ -4,10 +4,16 @@ defaults: &defaults
   machine: true
 
 jobs:
-  build_amd64:
+  build_arm:
     <<: *defaults
     steps:
       - checkout
       - run:
-          name: Build image for amd64
+          name: Build image for arm
           command: docker run --rm --privileged multiarch/qemu-user-static:register --reset && docker build . 
+
+workflows:
+  version: 2
+  compile-build-and-deploy:
+    jobs:
+      - build_arm
